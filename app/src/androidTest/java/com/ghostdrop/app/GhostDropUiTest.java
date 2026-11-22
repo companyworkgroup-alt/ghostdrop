@@ -2,7 +2,7 @@ package com.ghostdrop.app;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -34,7 +34,7 @@ public class GhostDropUiTest {
 
     @Test
     public void sendWithoutConnectionDoesNotCrash() {
-        onView(withHint("Γράψε μήνυμα")).perform(typeText("Δοκιμαστικό μήνυμα"), closeSoftKeyboard());
+        onView(withHint("Γράψε μήνυμα")).perform(replaceText("Δοκιμαστικό μήνυμα"), closeSoftKeyboard());
         onView(withText("Αποστολή μηνύματος")).perform(click());
         onView(withText("GhostDrop")).check(matches(isDisplayed()));
     }
