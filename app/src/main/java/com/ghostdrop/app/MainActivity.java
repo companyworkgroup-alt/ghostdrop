@@ -41,7 +41,7 @@ public class MainActivity extends Activity {
         String type=o.optString("type");
         if(type.equals("message")){write("Παραλαβή: "+o.optString("text"));ack();}
         else if(type.equals("filemeta")){long key=o.getLong("id");metadata.put(key,o);saveIfReady(key);}
-        else if(type.equals("ack")){write("Επιβεβαιώθηκε η παραλαβή");finish();}
+        else if(type.equals("ack")){write("Επιβεβαιώθηκε η παραλαβή");completeTransfer();}
       }catch(Exception e){error(e);}
     }
     @Override public void onPayloadTransferUpdate(String id,PayloadTransferUpdate t){
@@ -214,10 +214,10 @@ public class MainActivity extends Activity {
       if(!connected||endpoint==null)return;
       byte[] data=new JSONObject().put("type","ack").toString().getBytes(StandardCharsets.UTF_8);
       nearby.sendPayload(endpoint,Payload.fromBytes(data))
-        .addOnSuccessListener(v->finish()).addOnFailureListener(this::error);
+        .addOnSuccessListener(v->completeTransfer()).addOnFailureListener(this::error);
     }catch(Exception e){error(e);}
   }
-  private void finish(){
+  private void completeTransfer(){
     new Handler(Looper.getMainLooper()).postDelayed(()->{
       stop();showStatus("Η μεταφορά ολοκληρώθηκε, η σύνδεση έκλεισε");
     },1200);
