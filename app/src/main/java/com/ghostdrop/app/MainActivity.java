@@ -82,6 +82,7 @@ public class MainActivity extends Activity {
     root=new LinearLayout(this);root.setPadding(24,24,24,24);root.setOrientation(LinearLayout.VERTICAL);
     scroll.addView(root);
     TextView title=new TextView(this);title.setText("GhostDrop");title.setTextSize(30);root.addView(title);
+    TextView version=new TextView(this);version.setText("Έκδοση 0.2 — Wi-Fi fix");root.addView(version);
     status=new TextView(this);status.setTextSize(15);root.addView(status);
     addButton("Είμαι παραλήπτης",(v)->permissions(this::advertise));
     addButton("Είμαι αποστολέας",(v)->permissions(this::scan));
